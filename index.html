@@ -4,8 +4,174 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style.css">
   <title>Document</title>
 </head>
 <body>
+  <div class="canvas">
+    <canvas id="canvas" width="1000" height="500"></canvas>
+  </div>
+  <script>
+    var canvas = document.getElementById("canvas")
+    var ctx =  canvas.getContext('2d');
+
+    // 绘制三节外框线
+    // 绿线
+    draw(ctx, {
+      type: 'arc',
+      x: 100,
+      y: 100,
+      radius: 50,
+      start: 1.5 * Math.PI,
+      end: 0.7 * Math.PI,
+      strokeStyle: '#86bf4d',
+      lineWidth: 3
+    })
+    // 黄线
+    draw(ctx, {
+      type: 'arc',
+      x: 100,
+      y: 100,
+      radius: 50,
+      start: 0.7 * Math.PI,
+      end: 1.1 * Math.PI,
+      strokeStyle: '#f6d452',
+      lineWidth: 3
+    })
+    // 红线
+    draw(ctx, {
+      type: 'arc',
+      x: 100,
+      y: 100,
+      radius: 50,
+      start: 1.1 * Math.PI,
+      end: 1.5 * Math.PI,
+      strokeStyle: '#ec5d4f',
+      lineWidth: 3
+    })
+    
+    // 绘制中间投影层圆环
+    draw(ctx, {
+      type: 'arc',
+      x: 100,
+      y: 100,
+      radius: 38,
+      start: 0 * Math.PI,
+      end: 2 * Math.PI,
+      strokeStyle: '#ffffff',
+      lineWidth: 17,
+      shadowBlur: 6,
+      shadowColor: 'rgba(62, 63, 64, .35)'
+    })
+
+    // 绘制中线数据层圆环
+    draw(ctx, {
+      type: 'arc',
+      x: 100,
+      y: 100,
+      radius: 38,
+      start: 1.5 * Math.PI,
+      end: 0.5 * Math.PI,
+      strokeStyle: '#86bf4d',
+      lineWidth: 17
+    })
+
+    // 中间数据文字
+    draw(ctx, {
+      type: 'text',
+      x: 100,
+      y: 92,
+      text: '100px',
+      font: '22px',
+      align: 'center',
+      baseLine: 'middle'
+    })
+    draw(ctx, {
+      type: 'text',
+      x: 100,
+      y: 112,
+      text: '100%',
+      font: '12px',
+      align: 'center',
+      baseLine: 'middle'
+    })
+
+    // 绘制中间线条
+    draw(ctx, {
+      type: 'line',
+      x: 76,
+      y: 100,
+      x1: 124,
+      y2: 100,
+      lineWidth: 1,
+      strokeStyle: '#d3d5d6'
+    })
+
+    // 最外侧百分比刻度值
+    draw(ctx, {
+      type: 'text',
+      text: '60%',
+      x: 70,
+      y: 155,
+      align: 'center',
+      baseLine: 'middle'
+    })
+    draw(ctx, {
+      type: 'text',
+      text: '80%',
+      x: 37,
+      y: 83,
+      align: 'center',
+      baseLine: 'middle'
+    })
+    draw(ctx, {
+      type: 'text',
+      text: '90%',
+      x: 62,
+      y: 52,
+      align: 'center',
+      baseLine: 'middle'
+    })
+    draw(ctx, {
+      type: 'text',
+      text: '0%',
+      x: 100,
+      y: 43,
+      align: 'center',
+      baseLine: 'middle'
+    })
+
+    // drawText(ctx, '60%', 70, 155, '10px', 'center', 'middle')
+    // drawText(ctx, '80%', 37, 83, '10px', 'center', 'middle')
+    // drawText(ctx, '90%', 62, 52, '10px', 'center', 'middle')
+    // drawText(ctx, '0%', 100, 43, '10px', 'center', 'middle')
+
+    function draw(ctx, {type, x, y, x1, y2, strokeStyle, lineWidth, radius, start, end, shadowBlur, shadowColor, text, font, baseLine, align, fillStyle}){
+      ctx.beginPath()
+      ctx.lineWidth = lineWidth;
+      ctx.strokeStyle = strokeStyle;
+      ctx.fillStyle = fillStyle;
+      ctx.shadowBlur = shadowBlur;
+      ctx.shadowColor = shadowColor;
+      ctx.font = font;
+      ctx.textAlign = align;
+      ctx.textBaseline = baseLine;
+
+      switch(type){
+        case 'arc':
+          ctx.arc(x, y, radius, start, end);
+          ctx.stroke()
+          break;
+        case 'line':
+          ctx.moveTo(x, y)
+          ctx.lineTo(x1, y2)
+          ctx.stroke()
+          break;
+        case 'text':
+          ctx.fillText(text,x, y)
+          break;
+      }
+    }
+  </script>
 </body>
 </html>
